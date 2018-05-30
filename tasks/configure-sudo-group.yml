@@ -1,0 +1,18 @@
+---
+
+- name: create {{sudo_group}} group
+  group:
+    name: "{{sudo_group}}"
+    state: present
+
+- name: add sudo configuration for group {{sudo_group}}
+  template:
+    src: sudo-nopasswd.j2
+    dest: /etc/sudoers.d/sudo-group-nopasswd
+    owner: root
+    group: root
+    mode: 0440
+
+- name: remember that {{sudo_group}} group is already configured on this host
+  set_fact:
+    sudo_group_configured: yes

@@ -1,0 +1,9 @@
+force_set_password: no
+lock_password: no
+disable_user: no
+delete_user: no
+give_sudo: no
+default_shell: /bin/bash
+common_groups: []
+authorized_keys: []
+
