@@ -38,11 +38,11 @@
 - name: check if we shall apply user settings to this host
   set_fact:
     apply_to_this_host: yes
-  when: user_host_list | dedup | length > 0
+  when: user_host_list | length > 0
 
 - name: gathering host configuration
   set_fact:
-    host: "{{user_host_list | dedup | first}}"
+    host: "{{user_host_list | first}}"
   when: apply_to_this_host
 
 - name: configure sudo group
