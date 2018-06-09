@@ -48,6 +48,7 @@
 - name: configure sudo group
   include_tasks: configure-sudo-group.yml
   when: not (sudo_group_configured | default(no))
+  tags: [ sudo_configuration ]
 
 - name: delete user {{username}}
   user:
