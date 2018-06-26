@@ -1,5 +1,6 @@
 ---
 
+# user
 - name: check user shell [{{username}}]
   set_fact:
     new_shell: "{{ host.shell | default( shell | default(default_shell) ) }}"
@@ -33,6 +34,17 @@
     password: "{{new_password}}"
     update_password: "{{ (host.force_set_password | default(force_set_password)) | ternary('always', 'on_create') }}"
 
+# sudo commands
+- name: configure available sudo commands
+  template:
+    src: sudo-commands.j2
+    dest: /etc/sudoers.d/{{username}}-sudo-commands
+    mode: 0600
+    owner: root
+    group: root
+  when: sudo_commands is defined
+
+#access
 - name: create .ssh directories [{{username}}]
   file:
     path: "/home/{{username}}/.ssh"
@@ -49,7 +61,6 @@
     - ssh_public_keys | selectattr('name', 'equalto', item) | list | length == 0
   with_items: "{{ (host.authorized_keys | default(authorized_keys)) }}"
   
-    
 - name: set authorized ssh keys [{{username}}]
   template:
     src: authorized_keys.j2
