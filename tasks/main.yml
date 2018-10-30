@@ -64,4 +64,3 @@
   when:
     - apply_to_this_host
     - not (host.delete_user | default(delete_user))
-

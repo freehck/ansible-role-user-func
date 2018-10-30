@@ -69,4 +69,3 @@
     owner: "{{username}}"
     group: "{{username}}"
   when: ssh_public_keys is defined
-
