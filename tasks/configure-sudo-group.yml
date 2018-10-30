@@ -1,10 +1,10 @@
 ---
 
-- name: install sudo
-  apt:
-    name: sudo
-    state: present
-    update_cache: yes
+#- name: install sudo
+#  apt:
+#    name: sudo
+#    state: present
+#    update_cache: yes
 
 - name: create {{sudo_group}} group
   group:
