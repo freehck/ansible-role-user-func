@@ -6,3 +6,4 @@ give_sudo: no
 default_shell: /bin/bash
 common_groups: []
 authorized_keys: []
+sudo_group_configured: no
