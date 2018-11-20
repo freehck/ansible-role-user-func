@@ -23,6 +23,7 @@
 - name: lookup user definition for this host
   set_fact: user_host_list={{ user_host_list|default([]) + hosts | selectattr('host', 'equalto', item) | list }}
   with_items:
+    - "{{inventory_hostname}}"
     - "{{ansible_nodename}}"
     - "{{group_names}}"
     - all
