@@ -5,6 +5,11 @@
     msg: 'no username provided'
   when: username is undefined
 
+- name: check maingroup
+  fail:
+    msg: 'no maingroup provided'
+  when: maingroup is undefined
+
 - name: set facts
   set_fact:
     apply_to_this_host: no
@@ -19,7 +24,7 @@
       {%- elif (ansible_os_family in [ 'RedHat' ]) -%} wheel
       {%- else -%} sudo
       {%- endif -%}
-  
+
 - name: lookup user definition for this host
   set_fact: user_host_list={{ user_host_list|default([]) + hosts | selectattr('host', 'equalto', item) | list }}
   with_items:
@@ -27,14 +32,6 @@
     - "{{ansible_nodename}}"
     - "{{group_names}}"
     - all
-
-#- name: check duplicate entries for user '{{username}}'
-#  fail:
-#    msg: "Found duplicates. Omit host."
-#  when: user_host_list | dedup | length > 1
-
-# потому что jenkins должен быть на всех машинах (all), но только на
-# тех нодах, где есть docker, должен быть в его группе (prod07)
 
 - name: check if we shall apply user settings to this host
   set_fact:
