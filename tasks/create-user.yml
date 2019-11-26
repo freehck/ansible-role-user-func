@@ -8,7 +8,7 @@
   set_fact:
     new_shell: "{{nologin_shell}}"
   when: host.disable_user | default(disable_user)
-  
+
 - name: check user password [{{username}}]
   set_fact:
     new_password: "{{ host.password | default(password) | password_hash('sha512') }}"
@@ -60,7 +60,7 @@
     - ssh_public_keys is defined
     - ssh_public_keys | selectattr('name', 'equalto', item) | list | length == 0
   with_items: "{{ (host.authorized_keys | default(authorized_keys)) }}"
-  
+
 - name: set authorized ssh keys [{{username}}]
   template:
     src: authorized_keys.j2
